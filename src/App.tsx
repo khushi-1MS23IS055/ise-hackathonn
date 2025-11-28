@@ -8,7 +8,7 @@ import Register from "./pages/Register";
 import Goals from "./pages/Goals";
 import Planner from "./pages/Planner";
 import NotFound from "./pages/NotFound";
-import Login from '@/pages/Login';
+import Login from './pages/Login';
 
 const queryClient = new QueryClient();
 
@@ -21,6 +21,7 @@ const App = () => (
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/login" element={<Login />} />
           <Route path="/goals/:userId" element={<Goals />} />
           <Route path="/planner" element={<Planner />} />
           <Route path="/planner/:userId" element={<Planner />} />

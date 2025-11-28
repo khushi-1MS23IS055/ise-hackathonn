@@ -86,7 +86,7 @@ const Register = () => {
     toast({ title: 'Success!', description: 'Your profile has been created. Please log in.' });
 
     // Redirect to login page (user will enter username & password)
-    navigate(`/login`);
+    navigate(`/Login`);
   };
 
   const existingUsers = getUsers();
