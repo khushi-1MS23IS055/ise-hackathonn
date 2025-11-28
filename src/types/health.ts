@@ -6,6 +6,7 @@ export interface User {
   height: number;
   healthConditions: string;
   createdAt: string;
+  password?: string;
 }
 
 export interface Medicine {

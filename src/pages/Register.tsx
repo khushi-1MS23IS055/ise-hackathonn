@@ -1,3 +1,7 @@
+// Replace existing src/pages/Register.tsx with this updated file.
+// Changes: adds password input and redirects to /login after saving user.
+// UI otherwise unchanged.
+
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -19,6 +23,7 @@ const Register = () => {
     weight: '',
     height: '',
     healthConditions: '',
+    password: '',
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -60,6 +65,12 @@ const Register = () => {
       return;
     }
 
+    if (!formData.password || formData.password.length < 6) {
+      toast({ title: 'Error', description: 'Please enter a password (min 6 characters)', variant: 'destructive' });
+      setIsSubmitting(false);
+      return;
+    }
+
     const user: User = {
       id: generateId(),
       name: formData.name.trim(),
@@ -68,11 +79,14 @@ const Register = () => {
       height,
       healthConditions: formData.healthConditions.trim(),
       createdAt: new Date().toISOString(),
+      password: formData.password, // saved locally (not secure)
     };
 
     saveUser(user);
-    toast({ title: 'Success!', description: 'Your profile has been created.' });
-    navigate(`/goals/${user.id}`);
+    toast({ title: 'Success!', description: 'Your profile has been created. Please log in.' });
+
+    // Redirect to login page (user will enter username & password)
+    navigate(`/login`);
   };
 
   const existingUsers = getUsers();
@@ -216,6 +230,23 @@ const Register = () => {
                   <p className="text-xs text-muted-foreground">
                     This helps us tailor your plan. Leave empty if none.
                   </p>
+                </div>
+
+                {/* Password */}
+                <div className="space-y-2">
+                  <Label htmlFor="password" className="flex items-center gap-2">
+                    <UserIcon className="h-4 w-4 text-muted-foreground" />
+                    Password
+                  </Label>
+                  <Input
+                    id="password"
+                    name="password"
+                    type="password"
+                    placeholder="Choose a password (min 6 chars)"
+                    value={formData.password}
+                    onChange={handleChange}
+                    maxLength={100}
+                  />
                 </div>
 
                 {/* Submit Button */}

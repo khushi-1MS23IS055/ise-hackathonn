@@ -8,6 +8,7 @@ import Register from "./pages/Register";
 import Goals from "./pages/Goals";
 import Planner from "./pages/Planner";
 import NotFound from "./pages/NotFound";
+import Login from '@/pages/Login';
 
 const queryClient = new QueryClient();
 

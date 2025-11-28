@@ -1,3 +1,7 @@
+// Replace or merge with your existing src/lib/storage.ts
+// Adds authenticateUser(username, password) for the Login page.
+// Keeps original localStorage behavior.
+
 import { User, HealthGoals, WeeklyPlan } from '@/types/health';
 
 const USERS_KEY = 'health_planner_users';
@@ -34,7 +38,16 @@ export const deleteUser = (userId: string): void => {
   deletePlan(userId);
 };
 
-// Goals storage functions
+// Authentication (minimal, client-side)
+export const authenticateUser = (username: string, password: string): User | null => {
+  // Here we treat 'username' as the user's name (same field used in Register).
+  // If you prefer another username field, add it to the User type and form.
+  const users = getUsers();
+  const found = users.find(u => u.name === username && u.password === password);
+  return found || null;
+};
+
+/* Goals */
 export const getAllGoals = (): HealthGoals[] => {
   const data = localStorage.getItem(GOALS_KEY);
   return data ? JSON.parse(data) : [];
@@ -61,7 +74,7 @@ export const deleteGoals = (userId: string): void => {
   localStorage.setItem(GOALS_KEY, JSON.stringify(allGoals));
 };
 
-// Plans storage functions
+/* Plans */
 export const getAllPlans = (): WeeklyPlan[] => {
   const data = localStorage.getItem(PLANS_KEY);
   return data ? JSON.parse(data) : [];
