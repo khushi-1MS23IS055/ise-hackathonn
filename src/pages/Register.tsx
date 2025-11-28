@@ -86,12 +86,12 @@ const Register = () => {
     toast({ title: 'Success!', description: 'Your profile has been created. Please log in.' });
 
     // Redirect to login page (user will enter username & password)
-    navigate(`/Login`);
+    navigate(`/login`);
   };
 
   const existingUsers = getUsers();
 
-  return (
+  return (  
     <div className="min-h-screen bg-background">
       <Navbar />
       
